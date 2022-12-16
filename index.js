@@ -73,13 +73,13 @@ function currentSelection(selection) {
             {
                 type: 'list',
                 message: "Which employee's role do you want to update?",
-                list:[],
+                choices:[],
                 name: 'employee',
             },
             {
                 type: 'list',
                 message: "Which role do you want to assign the selected employee?",
-                list:[],
+                choices:[],
                 name: 'role',
             },
         ]).then((updatedRole) => {
@@ -96,6 +96,7 @@ function currentSelection(selection) {
         options()
     }
     if (selection === 'Add Role') {
+        // db.query('SELECT * FROM roles',function (err, results) {
         inquirer
         .prompt([
             {
@@ -111,8 +112,17 @@ function currentSelection(selection) {
             {
                 type: 'list',
                 message: "Which department does the role belong to?",
-                choice: [],
                 name: 'department',
+                choice: function () {
+                    let roleChoiceArr = []
+                    for (let i = 0; i < results.length; i++){
+                        roleChoiceArr.push({
+                            name: results[i].title,
+                            value: results[i].id,
+                        })
+                    }
+                }
+                
             }, 
         ]).then((newRole) => {
             const { role, salary, department } = newRole
