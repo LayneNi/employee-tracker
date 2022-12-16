@@ -1,4 +1,16 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
+const db = mysql.createConnection(
+    {
+      host: 'localhost',
+      // MySQL username,
+      user: 'root',
+      // MySQL password
+      password: 'Cd84uuuu$',
+      database: 'employee_db'
+    },
+    console.log(`Connected to the employee_db database.`)
+  );
 
 const options = () => {
     inquirer
@@ -14,15 +26,15 @@ const options = () => {
             const { selection } = response
             console.log(selection);
             currentSelection(selection)
-            // const currentSelection = new currentSelection(selection);
-            // myTeamArray.push(currentSelection);
-            // createEmployee(response.employee)
         })
 }
 
 function currentSelection(selection) {
     if (selection === 'View All Employees') {
         console.log("Success! All Employees");
+        db.query('SELECT * FROM employees',function (err, results) {
+            console.table(results);
+         })
         options()
     }
     if (selection === 'Add Employees') {
@@ -77,6 +89,9 @@ function currentSelection(selection) {
     }
     if (selection === 'View All Roles') {
         console.log("Success! All roles");
+        db.query('SELECT * FROM roles',function (err, results) {
+            console.table(results);
+         })
         options()
     }
     if (selection === 'Add Role') {
@@ -93,8 +108,9 @@ function currentSelection(selection) {
                 name: 'salary',
             },
             {
-                type: 'input',
+                type: 'list',
                 message: "Which department does the role belong to?",
+                choice: [],
                 name: 'department',
             }, 
         ]).then((newRole) => {
@@ -105,6 +121,9 @@ function currentSelection(selection) {
     }
     if (selection === 'View All Departments') {
         console.log("Success! All Departments");
+        db.query('SELECT * FROM departments',function (err, results) {
+            console.table(results);
+         })
         options()
     }
     if (selection === 'Add Department') {
