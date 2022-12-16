@@ -34,11 +34,17 @@ function currentSelection(selection) {
     if (selection === 'View All Employees') {
         console.log("Success! All Employees");
         db.query('SELECT * FROM employees',function (err, results) {
+            console.log("");
             console.table(results);
          })
         options()
     }
     if (selection === 'Add Employees') {
+    db.query('SELECT * FROM roles',(err, results) =>{
+        if (err){
+            console.log();
+        }
+        console.log(results);
         inquirer
             .prompt([
                 {
@@ -52,20 +58,31 @@ function currentSelection(selection) {
                     name: 'last',
                 },
                 {
-                    type: 'input',
+                    type: 'list',
                     message: "What is the employees role?",
                     name: 'role',
+                    choice: function () {
+                        let roleChoiceArr = []
+                        for (let i = 0; i < results.length; i++){
+                            roleChoiceArr.push({
+                                name: results[i].title,
+                                value: results[i].id,
+                            })
+                        }
+                    }
                 }, 
                 {
-                    type: 'input',
+                    type: 'list',
                     message: "Who is the employee's manager?",
                     name: 'manager',
+                    choices:[],
                 },
             ]).then((newEmployee) => {
                 const { first, last, role, manager } = newEmployee
                 console.log(newEmployee);
                 options()
             });
+        })
     }
     if (selection === 'Update Employee Role') {
         inquirer
@@ -96,7 +113,7 @@ function currentSelection(selection) {
         options()
     }
     if (selection === 'Add Role') {
-        // db.query('SELECT * FROM roles',function (err, results) {
+        // db.query('SELECT * FROM roles',function (err, results) =>{
         inquirer
         .prompt([
             {
