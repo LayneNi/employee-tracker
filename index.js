@@ -176,7 +176,7 @@ function currentSelection(selection) {
             if (err) {
                 console.log(err);
             }
-            console.log(results5);
+            // console.log(results5);
             inquirer
                 .prompt([
                     {
