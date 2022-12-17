@@ -15,8 +15,8 @@ VALUES ("Salesperson", "20000", "1"),
 
 
 INSERT INTO employees (first_name, last_name, roles_id, manager_id)
-VALUES ("Layne", "Nigro", "7", "null"),
-("Kaladin", "Stormblessed", "4", "null"),
+VALUES ("Layne", "Nigro", "7", "000"),
+("Kaladin", "Stormblessed", "4", "000"),
 ("Shallan", "Davar", "6", "1"),
 ("Dalinar", "Kholin", "6", "1"),
 ("Jasnah", "Kholin", "5", "3"),
@@ -24,5 +24,5 @@ VALUES ("Layne", "Nigro", "7", "null"),
 ("Renarin", "Kholin", "3", "2"),
 ("Meridas", "Amaram", "1", "4"),
 ("Chiri", "Chiri", "1", "4"),
-("Szeth", "son-son-Vallano", "2", "null"),
+("Szeth", "son-son-Vallano", "2", "000"),
 ("Torol", "Sadeas", "3", "2");
